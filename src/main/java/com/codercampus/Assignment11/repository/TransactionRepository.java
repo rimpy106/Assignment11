@@ -18,25 +18,19 @@ import com.codercampus.Assignment11.domain.Transaction;
 @Repository
 public class TransactionRepository {
 	private List<Transaction> transactions = new ArrayList<>(100);
-	Map<Long, Transaction> transactionDataMap = new HashMap<>();
+	Map<Long, Transaction> transactionMapData = new HashMap<>();
 
 	public TransactionRepository() {
 		super();
 		populateData();
-		populateDataforMap();
+		populateTransactionMapData();
 	}
 
 	public List<Transaction> findAll() {
 		Comparator<Transaction> comparator = (c1, c2) -> {
 			return c1.getDate().compareTo(c2.getDate());
 		};
-
 		Collections.sort(transactions, comparator);
-
-		/*
-		 * for(int i=0;i<transactions.size();i++) {
-		 * transactionMap.put(transactions.get(i).getId(), transactions.get(i)); }
-		 */
 		return transactions;
 	}
 
@@ -48,29 +42,26 @@ public class TransactionRepository {
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	private void populateDataforMap() {
+	private void populateTransactionMapData() {
 		for (int i = 0; i < transactions.size(); i++) {
-			transactionDataMap.put(transactions.get(i).getId(), transactions.get(i));
+			transactionMapData.put(transactions.get(i).getId(), transactions.get(i));
 		}
 	}
 
 	public Transaction getTransById(Long transactionId) {
-		System.out.println("transactionId : "+transactionId );
-		System.out.println(transactionDataMap.containsKey(transactionId));	
-		
-		Transaction singleTransactionByID = (Transaction)transactionDataMap.entrySet() 
-				                                                           .stream() 
-				                                                           .filter(entry->entry.getKey().equals(transactionId))
-		                                                                   .map(Map.Entry::getValue) 
-		                                                                   .findFirst() 
-		                                                                   .get();		                                        
+		/*
+		 * System.out.println("transactionId : "+transactionId );
+		 * System.out.println(transactionDataMap.containsKey(transactionId));
+		 */	
+	Transaction singleTransactionByID = (Transaction)transactionMapData.entrySet() 
+				                                                        .stream() 
+				                                                        .filter(entry->entry.getKey().equals(transactionId))
+		                                                                .map(Map.Entry::getValue) 
+		                                                                .findFirst() 
+		                                                                .get();	
 
-		System.out.println(singleTransactionByID);
-
-		return singleTransactionByID;
+	return singleTransactionByID;
 	}
-
 }

@@ -5,9 +5,11 @@
 </head>
 <body>
 	<div th:each="singleTrans : ${singleTransaction}">
-		<h2>Transaction ID : [[${singleTrans.id}]] ([[${singleTrans.type}]])
-		 <span th:if="${singleTrans.type =='D'}">Debit</span>
-		  <span th:unless="${singleTrans.type=='C'}">Credit</span>
+		<h2>Transaction ID : [[${singleTrans.id}]]
+		 (<span th:text="${singleTrans.type =='D' ? 'Debit' : ''}"></span>
+		 <span th:text="${singleTrans.type=='C' ? 'Credit' : ''}"></span>)
+		<!--   (<span th:if="${singleTrans.type =='D'}">Debit</span>
+		 <span th:unless="${singleTrans.type=='C'}">Credit</span>) -->
 		 </h2>
 		
 		<div th:inline="text">Date: [[${singleTrans.date}]]</div>
