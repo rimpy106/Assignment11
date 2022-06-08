@@ -1,0 +1,24 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+  <title>Transaction Details</title>
+  <link rel="stylesheet" href="/css/transactions.css" />
+</head>
+<body>
+	<div th:each="singleTrans : ${singleTransaction}">
+		<h2>Transaction ID : [[${singleTrans.id}]] ([[${singleTrans.type}]])
+		 <span th:if="${singleTrans.type =='D'}">Debit</span>
+		  <span th:unless="${singleTrans.type=='C'}">Credit</span>
+		 </h2>
+		
+		<div th:inline="text">Date: [[${singleTrans.date}]]</div>
+		<div th:inline="text">Amount:[[${singleTrans.amount}]]</div>
+		<div th:inline="text">Description:[[${singleTrans.description}]]</div>
+		<div>
+		  <a href="/transactions">back</a>
+		</div>
+	</div>
+
+
+
+</body>
+</html>

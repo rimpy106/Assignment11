@@ -1,0 +1,31 @@
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<title>Online Bank</title>
+<link rel="stylesheet" href="/css/transactions.css" />
+</head>
+<body>
+	<h2>Transaction History</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Retailer</th>
+			<th>Funds In</th>
+			<th>Funds Out</th>
+		</tr>
+
+		<tr th:each="transData : ${getAllData}">
+			<td> <a th:href="@{/transactions/{transDataId}(transDataId=${transData.Id})}"  th:text=${transData.Id}></a></td>
+			<td th:text=${transData.Date}></td>
+			<td th:text=${transData.Retailer}></td>
+			<td th:text="${transData.Type == 'C' ? transData.Amount : ' '}"></td>
+			<td th:text="${transData.Type == 'D' ? transData.Amount : ' '}"></td>
+			<!-- 	<td th:text=${transData.Amount} th:if="${transData.Type == 'D'}" th:unless=" "></td>
+				<td th:text=${transData.Amount} th:if="${transData.Type == 'C'}" th:unless=" "></td> -->
+		</tr>
+		
+		
+	</table>
+</body>
+</html>
